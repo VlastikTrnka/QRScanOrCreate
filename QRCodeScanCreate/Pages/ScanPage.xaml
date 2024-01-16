@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             xmlns:vm="clr-namespace:QRCodeScanCreate.ViewModels"
+             x:Class="QRCodeScanCreate.ScanPage">
+
+    <ContentPage.BindingContext>
+        <vm:ScanPageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Zpět" Clicked="OnBackClicked" Order="Primary" Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Spacing="25" Padding="30" VerticalOptions="CenterAndExpand"
+                 HorizontalOptions="FillAndExpand">
+
+
+            <cv:CameraView x:Name="cameraView" 
+                   VerticalOptions="FillAndExpand" 
+                   HorizontalOptions="FillAndExpand"
+                   CamerasLoaded="cameraView_CamerasLoaded"
+                   BarCodeDetectionEnabled="True"
+                   BarcodeDetected="cameraView_BarcodeDetected"/>
+
+            <Label Text="{Binding ScannedText}" HorizontalOptions="CenterAndExpand" FontSize="24"/>
+
+        <Button Text="Přejít na stránku"
+                Command="{Binding GoToUrlCommand}"
+                IsVisible="{Binding IsGoToUrlVisible}"/>
+
+        <Button Text="Vyhledat text na internetu"
+                Command="{Binding SearchTextCommand}"
+                IsVisible="{Binding IsSearchTextVisible}"/>
+    </StackLayout>
+</ContentPage>

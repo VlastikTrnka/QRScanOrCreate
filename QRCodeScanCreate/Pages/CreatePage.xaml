@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             xmlns:vm="clr-namespace:QRCodeScanCreate.ViewModels"
+             x:Class="QRCodeScanCreate.CreatePage"
+             NavigationPage.HasNavigationBar="True">
+
+    <ContentPage.BindingContext>
+        <vm:CreatePageViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Zpět" Clicked="OnBackClicked" Order="Primary" Priority="0" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Spacing="25" Padding="30" VerticalOptions="StartAndExpand"
+                 HorizontalOptions="FillAndExpand">
+
+        <Entry Text="{Binding InputText}" Placeholder="Zadejte text nebo adresu"
+                IsVisible="{Binding IsFormVisible}" VerticalOptions="Start" />
+
+        <Button Text="Vytvořit QR kód"  Command="{Binding CreateQrCommand}" 
+                IsVisible="{Binding IsFormVisible}" VerticalOptions="Start" />
+
+        <zxing:BarcodeGeneratorView
+            HeightRequest="250"
+            WidthRequest="250"
+            ForegroundColor="Black"
+            Value="{Binding QrCode}"
+            Format="QrCode"
+            Margin="3"
+            IsVisible="{Binding IsQrCodeVisible}" VerticalOptions="CenterAndExpand" />
+
+        <Button Text="Zpět" Command="{Binding BackCommand}" 
+                IsVisible="{Binding IsQrCodeVisible}" VerticalOptions="Start" />
+    </StackLayout>
+</ContentPage>
